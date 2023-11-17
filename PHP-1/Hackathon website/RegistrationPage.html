@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>User Registration</title>
+ <link rel="stylesheet" href="style2.css">
+</head>
+
+<body>
+
+ <div class="container">
+   <div class="title">Registration</div>
+   </br>
+
+   <div class="content">
+     <form method="post" id="projectVidya">
+       <div class="user-details">
+
+         <div class="input-box" for="fullname">
+           <span class="details">Full Name</span>
+           <input type="text" id="fullname" name="fullname" placeholder="Enter your name" required>
+         </div>
+
+         <div class="input-box" for="username">
+           <span class="details">Username</span>
+           <input type="text" id="username" name="username" placeholder="Enter your username" required>
+         </div>
+
+         <div class="input-box" for="email">
+           <span class="details">Email</span>
+           <input type="email" id="email" name="email" placeholder="Enter your email" required>
+         </div>
+
+         <div class="input-box" for="phnumber">
+           <span class="details">Phone Number</span>
+           <input type="number" id="phnumber" name="phnumber" placeholder="Enter your number" required>
+         </div>
+
+         <div class="input-box" for="password">
+           <span class="details">Password</span>
+           <input type="password" id="password" name="password" placeholder="Enter your password" required>
+         </div>
+
+         <div class="input-box" for="confirm_password">
+           <span class="details">Confirm Password</span>
+           <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+         </div>
+
+       </div>
+
+       </br>
+       <div class="gender-details">
+
+         <span class="gender-title">Gender</span>
+
+         <input type="radio" name="gender" value="Female" checked> Female
+         <input type="radio" name="gender" value="Male"> Male
+         
+         <!-- <div class="gender-details">
+  
+        <input type="radio" name="gender" id="dot-1">
+        <input type="radio" name="gender" id="dot-2">
+        
+        <span class="gender-title">Gender</span>
+        <div class="category">
+        
+        <label for="dot-1">
+          <span class="dot one"></span>
+          <span class="gender">Male</span>
+        </label>
+        
+        <label for="dot-2">
+          <span class="dot two"></span>
+          <span class="gender">Female</span>
+        </label>
+        
+  </div>
+-->
+
+         <div class="button">
+           <input type="submit" name="submit" value="Register" for="submit">
+         </div>
+         <p class="la">Already have an account? &nbsp;<a href="Login.html">Login</a></p>
+
+     </form>
+     <br>
+     <br>
+     php if (!empty($errors)) : 
+       <ul>
+        php foreach ($errors as $error) :
+           <li>php echo $error; </li>
+         php endforeach; 
+       </ul>
+     php endif; 
+   </div>
+ </div>
+
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase/realtime.js"></script>
+<script>
+const firebaseConfig = {
+    apiKey: "AIzaSyDGFncYUMIH5kO0mHzuIZxmqY96a_iHrzQ",
+    authDomain: "project-vidya-da4c2.firebaseapp.com",
+    databaseURL: "https://project-vidya-da4c2-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "project-vidya-da4c2",
+    storageBucket: "project-vidya-da4c2.appspot.com",
+    messagingSenderId: "873493013458",
+    appId: "1:873493013458:web:122c348301a13771799e0b",
+    measurementId: "G-172P1LRXC8"
+  };
+  firebaseConfig.initializeApp(firebaseConfig);
+  const projectVidyaDB = firebase.database().ref('projectVidya');
+ document.getElementById('projectVidya').addEventListener("submit",submitForm);
+
+ function submitForm(e)
+ {
+      e.preventDefault();
+      var fullname = getElementVal('fullname');
+      var username = getElementVal('username');
+      var email = getElementVal('email');
+      var phnumber = getElementVal('phnumber');
+      var password = getElementVal('password');
+      var confirm_password = getElementVal('confirm_password');
+      console.log(fullname,username,email,phnumber,password,confirm_password);// for the inspection of getting data or not in inpect 
+      saveMessages(fullname,username,email,phnumber,password,confirm_password);
+ }
+
+const saveMessages = (fullname,username,email,phnumber,password,confirm_password) => {
+    var newPojectVidya = projectVidyaDB.push();
+     newPojectVidya.set({
+    fullname:fullname,
+    username:username,
+    email:email,
+    phnumber:phnumber,
+    password:password,
+    confirm_password:confirm_password,
+    });
+};
+
+
+ const getElementVal = (id) => {
+    return document.getElementById(id).value;
+ };
+  </script>
+
+</html>
